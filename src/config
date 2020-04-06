@@ -1,0 +1,11 @@
+#tanks count initialization
+initTankCount=10
+tankSpeed=15
+tankSpeedMy=15
+tankSpeedOth=5
+bulletSpeed=20
+gameWidth=1080
+gameHeight=720
+#fireStrategy
+goodFS=com.houkai.tank.FourDirFireStrategy
+badFS=com.houkai.tank.DefaultFireStrategy
