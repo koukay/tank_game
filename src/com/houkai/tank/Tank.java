@@ -1,6 +1,6 @@
 package com.houkai.tank;
 
-import com.houkai.tank.abstractfactory.BaseTank;
+
 
 import java.awt.*;
 import java.util.Random;
@@ -9,7 +9,7 @@ import java.util.Random;
  * @author houkai
  *创建坦克类,控制坦克方向及移动速度速度
  */
-public class Tank  extends BaseTank {
+public class Tank {
 	public int x , y ;
 	public Dir dir = Dir.DOWN;
 	//从配置文件中取配置信息
@@ -19,11 +19,11 @@ public class Tank  extends BaseTank {
 	public static int WIDTH = ResourceMgr.goodTankU.getWidth();
 	public static int HEIGHT = ResourceMgr.goodTankU.getHeight();
 	private Random random=new Random();
-	public Rectangle rect=new Rectangle();
+	Rectangle rect=new Rectangle();
 	private boolean moving = true;
 	public TankFrame tf ;
 	private boolean living=true;
-//	public Group group= Group.BAD;
+	public Group group= Group.BAD;
 
 	FireStrategy fs;
 	public Tank(int x, int y, Dir dir, TankFrame tf, Group group) {
@@ -44,16 +44,26 @@ public class Tank  extends BaseTank {
 			SPEED = Integer.parseInt(PropertyMgr.get("tankSpeedMy").toString());
 			try {
 				fs= (FireStrategy) Class.forName(goodFSName).newInstance();
-			}  catch (Exception e) {
+			} catch (InstantiationException e) {
+				e.printStackTrace();
+			} catch (IllegalAccessException e) {
+				e.printStackTrace();
+			} catch (ClassNotFoundException e) {
 				e.printStackTrace();
 			}
-		}else {//是敌方坦克,就是默认装弹策略
+		}
+		//是敌方坦克,就是默认装弹策略
+		else {
 			String badFSName= (String) PropertyMgr.get("badFS");
-			//敌方坦克,速度5
+			//敌方方坦克,速度15
 			SPEED = Integer.parseInt(PropertyMgr.get("tankSpeedOth").toString());
 			try {
 				fs= (FireStrategy) Class.forName(badFSName).newInstance();
-			}  catch (Exception e) {
+			} catch (InstantiationException e) {
+				e.printStackTrace();
+			} catch (IllegalAccessException e) {
+				e.printStackTrace();
+			} catch (ClassNotFoundException e) {
 				e.printStackTrace();
 			}
 		}
@@ -162,14 +172,7 @@ public class Tank  extends BaseTank {
 	}
 
 	public void fire() {
-//		fs.fire(this);
-		int bx=this.x+Tank.WIDTH/2-Bullet.WIDTH/2;
-		int by=this.y+Tank.HEIGHT/2-Bullet.HEIGHT/2;
-		Dir[] dirs= Dir.values();
-		for (Dir dir : dirs) {
-			this.tf.gf.createBullet(bx, by, dir,this.group,this.tf);
-		}
-		if (this.group==Group.GOOD)new Thread(()->new Audio("audio/tank_fire.wav").play()).start();
+		fs.fire(this);
 	}
 
 	public Group getGroup() {

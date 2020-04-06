@@ -1,7 +1,5 @@
 package com.houkai.tank;
 
-import com.houkai.tank.abstractfactory.*;
-
 import java.awt.Color;
 import java.awt.Frame;
 import java.awt.Graphics;
@@ -16,14 +14,12 @@ import java.util.List;
 public class TankFrame extends Frame {
 	private static final long serialVersionUID = 1L;
 	Tank myTank = new Tank(200, 400, Dir.DOWN,this,Group.GOOD);
-	public List<BaseBullet> bullets = new ArrayList<>();
-	public List<BaseTank> tanks = new ArrayList<>();
-//	Explode e=new Explode(100, 100, this);
-	public List<BaseExplode> explodes= new ArrayList<>();
+	List<Bullet> bullets = new ArrayList<>();
+	List<Tank> tanks = new ArrayList<>();
+	Explode e=new Explode(100, 100, this);
+	List<Explode> explodes= new ArrayList<>();
 
-	public GameFactory gf= new DefaultFactory();
-
-	public static final int GAME_WIDTH=Integer.parseInt(PropertyMgr.get("gameWidth").toString())
+	static final int GAME_WIDTH=Integer.parseInt(PropertyMgr.get("gameWidth").toString())
 			,GAME_HEIGHT=Integer.parseInt(PropertyMgr.get("gameHeight").toString());
 
 	public TankFrame() {
@@ -64,7 +60,7 @@ public class TankFrame extends Frame {
 		g.setColor(Color.white);
 		g.drawString("子弹的数量"+bullets.size(), 10,60);
 		g.drawString("敌人的数量"+tanks.size(), 10,80);
-		g.drawString("爆炸的数量"+explodes.size(), 10,100);
+		g.drawString("explodes"+explodes.size(), 10,100);
 		g.setColor(c);
 		myTank.paint(g);
 		for (int i = 0; i < bullets.size(); i++) {

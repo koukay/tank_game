@@ -1,7 +1,5 @@
 package com.houkai.tank;
 
-import com.houkai.tank.abstractfactory.BaseExplode;
-
 import java.awt.*;
 import java.util.Random;
 
@@ -9,7 +7,7 @@ import java.util.Random;
  * @author houkai
  *创建坦克类,控制坦克方向及移动速度速度
  */
-public class Explode extends BaseExplode {
+public class Explode {
 	private int x , y ;
 	public static int WIDTH = ResourceMgr.explores[0].getWidth();
 	public static int HEIGHT = ResourceMgr.explores[0].getHeight();
@@ -22,7 +20,7 @@ public class Explode extends BaseExplode {
 		this.y = y;
 		this.tf = tf;
 	}
-	@Override
+
 	public void paint(Graphics g) {
 
 		g.drawImage(ResourceMgr.explores[step++],x,y,null);

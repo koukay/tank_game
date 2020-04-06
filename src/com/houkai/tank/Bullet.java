@@ -1,14 +1,11 @@
 package com.houkai.tank;
 
-import com.houkai.tank.abstractfactory.BaseBullet;
-import com.houkai.tank.abstractfactory.BaseTank;
-
 import java.awt.*;
 
 /**
  * @author houkai 定义子弹类,new出一個新的子彈
  */
-public class Bullet  extends BaseBullet{
+public class Bullet {
 	private static final int SPEED = Integer.parseInt(PropertyMgr.get("bulletSpeed").toString());
 	public static int WIDTH = ResourceMgr.bulletD.getWidth();
 	public static int HEIGHT = ResourceMgr.bulletD.getHeight();
@@ -45,6 +42,7 @@ public class Bullet  extends BaseBullet{
 	public void setGroup(Group group) {
 		this.group = group;
 	}
+
 	public void paint(Graphics g) {
 		if (!living) {
 			tf.bullets.remove(this);
@@ -110,7 +108,7 @@ public class Bullet  extends BaseBullet{
 			living = false;
 	}
 
-	public void collidewith(BaseTank tank) {
+	public void collidewith(Tank tank) {
 		if (this.group==tank.getGroup()) return;
 //		Rectangle rect1=new Rectangle(this.x, this.y, WIDTH, HEIGHT);
 //		Rectangle rect2=new Rectangle(tank.getX(), tank.getY(),Tank.WIDTH, Tank.HEIGHT);
@@ -119,8 +117,7 @@ public class Bullet  extends BaseBullet{
 			this.die();
 			int eX = tank.getX() + Tank.WIDTH / 2 - Explode.WIDTH / 2;
 			int eY = tank.getY() + Tank.HEIGHT / 2 - Explode.HEIGHT / 2;
-//			tf.explodes.add(new Explode(eX, eY, tf));
-			tf.explodes.add(tf.gf.createExplode(eX, eY, tf));
+			tf.explodes.add(new Explode(eX, eY, tf));
 		}
 
 	}

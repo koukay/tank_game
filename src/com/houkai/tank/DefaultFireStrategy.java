@@ -1,5 +1,6 @@
 package com.houkai.tank;
 
+
 /**
  * 默认策略模式
  */
