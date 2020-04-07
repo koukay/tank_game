@@ -1,7 +1,6 @@
 package com.houkai.tank;
 
 import java.awt.*;
-import java.util.Random;
 
 /**
  * @author houkai
@@ -12,13 +11,13 @@ public class Explode {
 	public static int WIDTH = ResourceMgr.explores[0].getWidth();
 	public static int HEIGHT = ResourceMgr.explores[0].getHeight();
 
-	private TankFrame tf ;
+	GameModel gm ;
 	private boolean living=true;
 	private int step=0;
-	public Explode(int x, int y, TankFrame tf) {
+	public Explode(int x, int y, GameModel gm ) {
 		this.x = x;
 		this.y = y;
-		this.tf = tf;
+		this.gm = gm;
 	}
 
 	public void paint(Graphics g) {
@@ -26,7 +25,7 @@ public class Explode {
 		g.drawImage(ResourceMgr.explores[step++],x,y,null);
 
 		if (step>=ResourceMgr.explores.length)
-			tf.explodes.remove(this);
+			gm.explodes.remove(this);
 	}
 
 }
