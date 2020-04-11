@@ -31,13 +31,12 @@ public class Tank extends GameObject{
 	private boolean living=true;
 	public Group group= Group.BAD;
 
-	public GameModel gm;
 	public FireStrategy fs;
-	public Tank(int x, int y, Dir dir, GameModel gm, Group group) {
+	public Tank(int x, int y, Dir dir,  Group group) {
+		super();
 		this.x = x;
 		this.y = y;
 		this.dir = dir;
-		this.gm = gm;
 		this.group = group;
 
 		rect.x=this.x;
@@ -51,11 +50,7 @@ public class Tank extends GameObject{
 			SPEED = Integer.parseInt(PropertyMgr.get("tankSpeedMy").toString());
 			try {
 				fs= (FireStrategy) Class.forName(goodFSName).newInstance();
-			} catch (InstantiationException e) {
-				e.printStackTrace();
-			} catch (IllegalAccessException e) {
-				e.printStackTrace();
-			} catch (ClassNotFoundException e) {
+			}  catch (Exception e) {
 				e.printStackTrace();
 			}
 		}
@@ -66,18 +61,15 @@ public class Tank extends GameObject{
 			SPEED = Integer.parseInt(PropertyMgr.get("tankSpeedOth").toString());
 			try {
 				fs= (FireStrategy) Class.forName(badFSName).newInstance();
-			} catch (InstantiationException e) {
-				e.printStackTrace();
-			} catch (IllegalAccessException e) {
-				e.printStackTrace();
-			} catch (ClassNotFoundException e) {
+			} catch (Exception e) {
 				e.printStackTrace();
 			}
 		}
+		GameModel.getInstance().add(this);
 	}
 
 	public void paint(Graphics g) {
-		if (!living) gm.remove(this);
+		if (!living) GameModel.getInstance().remove(this);
 		switch (dir){
 			case LEFT:
 				g.drawImage(this.group==Group.GOOD?ResourceMgr.goodTankL : ResourceMgr.badTankL, x, y, null);
@@ -91,8 +83,19 @@ public class Tank extends GameObject{
 			case DOWN:
 				g.drawImage(this.group==Group.GOOD?ResourceMgr.goodTankD : ResourceMgr.badTankD, x, y, null);
 				break;
+			case LEFT_DOWN:
+				g.drawImage(this.group==Group.GOOD?ResourceMgr.goodTankLD : ResourceMgr.badTankD, x, y, null);
+				break;
+			case RIGHT_UP:
+				g.drawImage(this.group==Group.GOOD?ResourceMgr.goodTankRU : ResourceMgr.badTankD, x, y, null);
+				break;
+			case RIGHT_DOWN:
+				g.drawImage(this.group==Group.GOOD?ResourceMgr.goodTankRD : ResourceMgr.badTankD, x, y, null);
+				break;
+			case LEFT_UP:
+				g.drawImage(this.group==Group.GOOD?ResourceMgr.goodTankLU : ResourceMgr.badTankD, x, y, null);
+				break;
 		}
-
 		move();
 
 	}

@@ -1,7 +1,6 @@
 package com.houkai.tank.cor;
 
 import com.houkai.tank.*;
-import com.sun.org.glassfish.gmbal.GmbalException;
 
 public class BulletTankCollider implements Collider {
     @Override
@@ -17,7 +16,7 @@ public class BulletTankCollider implements Collider {
                 b.die();
                 int eX = t.getX() + Tank.WIDTH / 2 - Explode.WIDTH / 2;
                 int eY = t.getY() + Tank.HEIGHT / 2 - Explode.HEIGHT / 2;
-                new Explode(eX, eY, GameModel.getInstance());
+                new Explode(eX, eY);
 
                 return false;
             }

@@ -10,7 +10,7 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
 public class TankFrame extends Frame {
-	GameModel gm= new GameModel();
+	GameModel gm= GameModel.getInstance();
 	private static final long serialVersionUID = 1L;
 
 

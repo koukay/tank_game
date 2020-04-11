@@ -12,26 +12,23 @@ public class Bullet extends GameObject{
 
 	public Rectangle rect=new Rectangle();
 
-	private int x, y;
 	Dir dir;
 	//记录子弹状态,飞出画面就死了,打中敌人也会死
 	boolean living = true;
-	GameModel gm=null;
 	public Group group=Group.BAD;
 
 
-	public Bullet(int x, int y, Dir dir, GameModel gm, Group group) {
+	public Bullet(int x, int y, Dir dir, Group group) {
 		this.x = x;
 		this.y = y;
 		this.dir = dir;
-		this.gm = gm;
 		this.group = group;
 
 		rect.x=this.x;
 		rect.y=this.y;
 		rect.width=WIDTH;
 		rect.height=HEIGHT;
-		gm.add(this);
+		GameModel.getInstance().add(this);
 	}
 
 	public Group getGroup() {
@@ -44,7 +41,7 @@ public class Bullet extends GameObject{
 
 	public void paint(Graphics g) {
 		if (!living) {
-			gm.remove(this);
+			GameModel.getInstance().remove(this);
 		}
 		switch (dir){
 			case LEFT:
@@ -58,6 +55,18 @@ public class Bullet extends GameObject{
 				break;
 			case DOWN:
 				g.drawImage(ResourceMgr.bulletD, x, y, null);
+				break;
+			case LEFT_DOWN:
+				g.drawImage(ResourceMgr.bulletLD, x, y, null);
+				break;
+			case RIGHT_UP:
+				g.drawImage(ResourceMgr.bulletRU, x, y, null);
+				break;
+			case RIGHT_DOWN:
+				g.drawImage(ResourceMgr.bulletRD, x, y, null);
+				break;
+			case LEFT_UP:
+				g.drawImage(ResourceMgr.bulletLU, x, y, null);
 				break;
 		}
 		move();
