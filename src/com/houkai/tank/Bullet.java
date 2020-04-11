@@ -5,19 +5,19 @@ import java.awt.*;
 /**
  * @author houkai 定义子弹类,new出一個新的子彈
  */
-public class Bullet {
+public class Bullet extends GameObject{
 	private static final int SPEED = Integer.parseInt(PropertyMgr.get("bulletSpeed").toString());
 	public static int WIDTH = ResourceMgr.bulletD.getWidth();
 	public static int HEIGHT = ResourceMgr.bulletD.getHeight();
 
-	Rectangle rect=new Rectangle();
+	public Rectangle rect=new Rectangle();
 
 	private int x, y;
 	Dir dir;
 	//记录子弹状态,飞出画面就死了,打中敌人也会死
 	boolean living = true;
 	GameModel gm=null;
-	private Group group=Group.BAD;
+	public Group group=Group.BAD;
 
 
 	public Bullet(int x, int y, Dir dir, GameModel gm, Group group) {
@@ -31,7 +31,7 @@ public class Bullet {
 		rect.y=this.y;
 		rect.width=WIDTH;
 		rect.height=HEIGHT;
-		gm.bullets.add(this);
+		gm.add(this);
 	}
 
 	public Group getGroup() {
@@ -44,7 +44,7 @@ public class Bullet {
 
 	public void paint(Graphics g) {
 		if (!living) {
-			gm.bullets.remove(this);
+			gm.remove(this);
 		}
 		switch (dir){
 			case LEFT:
@@ -107,8 +107,8 @@ public class Bullet {
 			living = false;
 	}
 
-	public void collidewith(Tank tank) {
-		if (this.group==tank.getGroup()) return;
+/*	public boolean collidewith(Tank tank) {
+		if (this.group==tank.getGroup()) return false;
 //		Rectangle rect1=new Rectangle(this.x, this.y, WIDTH, HEIGHT);
 //		Rectangle rect2=new Rectangle(tank.getX(), tank.getY(),Tank.WIDTH, Tank.HEIGHT);
 		if (rect.intersects(tank.rect)){
@@ -116,12 +116,14 @@ public class Bullet {
 			this.die();
 			int eX = tank.getX() + Tank.WIDTH / 2 - Explode.WIDTH / 2;
 			int eY = tank.getY() + Tank.HEIGHT / 2 - Explode.HEIGHT / 2;
-			gm.explodes.add(new Explode(eX, eY, gm));
+			gm.add(new Explode(eX, eY, gm));
+
+			return true;
 		}
+		return false;
+	}*/
 
-	}
-
-	private void die() {
+	public void die() {
 		this.living=false;
 	}
 }

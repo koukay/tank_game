@@ -7,5 +7,7 @@ bulletSpeed=20
 gameWidth=1080
 gameHeight=720
 #fireStrategy
-goodFS=com.houkai.tank.FourDirFireStrategy
-badFS=com.houkai.tank.DefaultFireStrategy
+goodFS=com.houkai.tank.stratage.FourDirFireStrategy
+badFS=com.houkai.tank.stratage.DefaultFireStrategy
+#colliders
+colliders=com.houkai.tank.cor.BulletTankCollider,com.houkai.tank.cor.TankTankCollider

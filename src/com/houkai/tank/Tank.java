@@ -2,6 +2,8 @@ package com.houkai.tank;
 
 
 
+import com.houkai.tank.stratage.FireStrategy;
+
 import java.awt.*;
 import java.util.Random;
 
@@ -9,9 +11,14 @@ import java.util.Random;
  * @author houkai
  *创建坦克类,控制坦克方向及移动速度速度
  */
-public class Tank {
-	public int x , y ;
+public class Tank extends GameObject{
+	int oldX, oldY;
 	public Dir dir = Dir.DOWN;
+
+	public Rectangle getRect() {
+		return rect;
+	}
+
 	//从配置文件中取配置信息
 	private static  int SPEED = Integer.parseInt(PropertyMgr.get("tankSpeed").toString());
 //	private static final int SPEED = Integer.parseInt(PropertyMgr.get("tankSpeed").toString());
@@ -19,13 +26,13 @@ public class Tank {
 	public static int WIDTH = ResourceMgr.goodTankU.getWidth();
 	public static int HEIGHT = ResourceMgr.goodTankU.getHeight();
 	private Random random=new Random();
-	Rectangle rect=new Rectangle();
+	public Rectangle rect=new Rectangle();
 	private boolean moving = true;
 	private boolean living=true;
 	public Group group= Group.BAD;
 
-	GameModel gm;
-	FireStrategy fs;
+	public GameModel gm;
+	public FireStrategy fs;
 	public Tank(int x, int y, Dir dir, GameModel gm, Group group) {
 		this.x = x;
 		this.y = y;
@@ -70,7 +77,7 @@ public class Tank {
 	}
 
 	public void paint(Graphics g) {
-		if (!living) gm.tanks.remove(this);
+		if (!living) gm.remove(this);
 		switch (dir){
 			case LEFT:
 				g.drawImage(this.group==Group.GOOD?ResourceMgr.goodTankL : ResourceMgr.badTankL, x, y, null);
@@ -91,6 +98,10 @@ public class Tank {
 	}
 
 	private void move() {
+		//记录移动之前的位置
+		oldX=x;
+		oldY=y;
+
 		if (!moving)
 			return;
 		switch (dir) {
@@ -201,5 +212,10 @@ public class Tank {
 
 	public void die() {
 		this.living=false;
+	}
+
+	public void back(){
+		x=oldX;
+		y=oldY;
 	}
 }
