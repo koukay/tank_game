@@ -2,9 +2,13 @@ package com.houkai.tank;
 
 
 
+import com.houkai.tank.observer.TankFireHandler;
+import com.houkai.tank.observer.TankFireObserver;
 import com.houkai.tank.stratage.FireStrategy;
 
 import java.awt.*;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Random;
 
 /**
@@ -32,6 +36,7 @@ public class Tank extends GameObject{
 	public Group group= Group.BAD;
 
 	public FireStrategy fs;
+	private List<TankFireObserver> fireObservers = Arrays.asList(new TankFireHandler());
 	public Tank(int x, int y, Dir dir,  Group group) {
 		super();
 		this.x = x;
@@ -230,5 +235,11 @@ public class Tank extends GameObject{
 	public void back(){
 		x=oldX;
 		y=oldY;
+	}
+	public void handleFireKey(){
+		TankFireEvent tankFireEvent = new TankFireEvent(this);
+		for (TankFireObserver o : fireObservers) {
+			o.actionOnFire(tankFireEvent);
+		}
 	}
 }
