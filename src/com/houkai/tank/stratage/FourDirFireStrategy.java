@@ -1,6 +1,7 @@
 package com.houkai.tank.stratage;
 
 import com.houkai.tank.*;
+import com.houkai.tank.decorator.RectDecorator;
 
 /**
  * 策略模式,四个方向打出子弹
@@ -12,6 +13,11 @@ public class FourDirFireStrategy implements FireStrategy {
         int by=t.y+Tank.HEIGHT/2-Bullet.HEIGHT/2;
         Dir[] dirs= Dir.values();
         for (Dir dir : dirs) {
+           /* GameModel.getInstance().add(
+                    new RectDecorator(
+                            new Bullet(bx, by,dir,t.group)
+                    )
+            );*/
             new Bullet(bx, by, dir,t.group);
         }
         if (t.group== Group.GOOD)new Thread(()->new Audio("audio/tank_fire.wav").play()).start();

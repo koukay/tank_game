@@ -1,8 +1,8 @@
 #tanks count initialization
 initTankCount=10
-tankSpeed=15
+tankSpeed=2
 tankSpeedMy=20
-tankSpeedOth=5
+tankSpeedOth=2
 bulletSpeed=20
 gameWidth=1080
 gameHeight=720

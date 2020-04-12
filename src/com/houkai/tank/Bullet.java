@@ -6,7 +6,7 @@ import java.awt.*;
  * @author houkai 定义子弹类,new出一個新的子彈
  */
 public class Bullet extends GameObject{
-	private static final int SPEED = Integer.parseInt(PropertyMgr.get("bulletSpeed").toString());
+	private  int SPEED = 8;
 	public static int WIDTH = ResourceMgr.bulletD.getWidth();
 	public static int HEIGHT = ResourceMgr.bulletD.getHeight();
 
@@ -28,6 +28,9 @@ public class Bullet extends GameObject{
 		rect.y=this.y;
 		rect.width=WIDTH;
 		rect.height=HEIGHT;
+		if (group == Group.GOOD) {
+			SPEED = Integer.parseInt(PropertyMgr.get("bulletSpeed").toString());
+		}
 		GameModel.getInstance().add(this);
 	}
 
@@ -70,6 +73,16 @@ public class Bullet extends GameObject{
 				break;
 		}
 		move();
+	}
+
+	@Override
+	public int getWidth() {
+		return WIDTH;
+	}
+
+	@Override
+	public int getHeight() {
+		return HEIGHT;
 	}
 
 	private void move() {

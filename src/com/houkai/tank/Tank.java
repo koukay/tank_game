@@ -20,7 +20,7 @@ public class Tank extends GameObject{
 	}
 
 	//从配置文件中取配置信息
-	private static  int SPEED = Integer.parseInt(PropertyMgr.get("tankSpeed").toString());
+	private   int SPEED = Integer.parseInt(PropertyMgr.get("tankSpeed").toString());
 //	private static final int SPEED = Integer.parseInt(PropertyMgr.get("tankSpeed").toString());
 
 	public static int WIDTH = ResourceMgr.goodTankU.getWidth();
@@ -98,6 +98,16 @@ public class Tank extends GameObject{
 		}
 		move();
 
+	}
+
+	@Override
+	public int getWidth() {
+		return WIDTH;
+	}
+
+	@Override
+	public int getHeight() {
+		return HEIGHT;
 	}
 
 	private void move() {

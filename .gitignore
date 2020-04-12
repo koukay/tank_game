@@ -182,3 +182,6 @@
 /bin/target/classes/image/tankRD.gif
 /bin/target/classes/image/tankRU.gif
 /bin/target/classes/image/tankU.gif
+/.idea/
+/target/classes/com/houkai/tank/GameModel.class
+/target/classes/com/houkai/tank/

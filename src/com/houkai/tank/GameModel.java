@@ -22,13 +22,17 @@ public class GameModel {
 		for (int i = 0; i < initTankCount; i++) {
 			new Tank(50+ i*80, 200, Dir.DOWN,Group.BAD);
 		}
-		//初始化墙
+		//初始化墙 x:右,y:下  w:墙宽 h:墙高
 		add(new Wall(150,150,200,50));
 		add(new Wall(550,150,200,50));
-		add(new Wall(300,300,50,150));
+		add(new Wall(400,300,50,150));
 		add(new Wall(550,300,50,150));
 		add(new Wall(1000,300,50,250));
 		add(new Wall(10,300,50,250));
+		add(new Wall(300,100,250,50));
+		add(new Wall(150,400,250,50));
+		add(new Wall(550,400,250,50));
+		add(new Wall(350,550,250,50));
 	}
 
 	ColliderChain chain = new ColliderChain();
