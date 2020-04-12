@@ -88,6 +88,12 @@ public class TankFrame extends Frame {
 			case KeyEvent.VK_DOWN:
 				bd = true;
 				break;
+			case KeyEvent.VK_S:
+				gm.save();
+				break;
+			case KeyEvent.VK_L:
+				gm.load();
+				break;
 			case KeyEvent.VK_NUMPAD9:
 				b_r_u = true;
 				break;
@@ -125,6 +131,9 @@ public class TankFrame extends Frame {
 				break;
 			case KeyEvent.VK_DOWN:
 				bd = false;
+				break;
+			case KeyEvent.VK_CONTROL:
+				gm.getMainTank().handleFireKey();
 				break;
 			case KeyEvent.VK_NUMPAD9:
 				b_r_u = false;

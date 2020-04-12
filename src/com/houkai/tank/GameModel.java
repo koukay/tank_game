@@ -4,6 +4,7 @@ package com.houkai.tank;
 import com.houkai.tank.cor.ColliderChain;
 
 import java.awt.*;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -73,5 +74,46 @@ public class GameModel {
 
 	public Tank getMainTank() {
 		return myTank;
+	}
+	//存盘
+	public void save(){
+		File f= new File("E:/houkai/tank.data");
+		ObjectOutputStream oos =null;
+		try {
+			 oos = new ObjectOutputStream(new FileOutputStream(f));
+			//写入mytank
+			oos.writeObject(myTank);
+			oos.writeObject(objects);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}finally {
+			if (oos!=null){
+				try {
+					oos.close();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+	}
+	//读盘
+	public void load() {
+		File f= new File("E:/houkai/tank.data");
+		ObjectInputStream ois =null;
+		try {
+			ois = new ObjectInputStream(new FileInputStream(f));
+			myTank= (Tank) ois.readObject();
+			objects= (List<GameObject>) ois.readObject();
+		} catch (IOException | ClassNotFoundException e) {
+			e.printStackTrace();
+		}finally {
+			if (ois!=null){
+				try {
+					ois.close();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+		}
 	}
 }
